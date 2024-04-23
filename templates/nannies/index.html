@@ -1,1 +1,6 @@
-<h1>Index</h1>
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <h1>保姆列表</h1>
+    <a href="{% url 'nannies:new' %}">新增</a>
+{% endblock %}
