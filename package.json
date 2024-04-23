@@ -1,0 +1,15 @@
+{
+  "name": "pet_nanny",
+  "version": "1.0.0",
+  "description": "## Setup",
+  "main": "index.js",
+  "scripts": {
+    "build-css": "tailwindcss -i ./src/tailwind/style.css -o ./static/styles/style.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
+  }
+}
