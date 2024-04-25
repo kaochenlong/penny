@@ -2,9 +2,34 @@
 
 {% block content %}
     <h1>新增保姆</h1>
-    <form action="/nannies/add" method="post">
+    <form action="{% url 'nannies:add' %}" method="post">
         {% csrf_token %}
 
-        <input type="submit" value="login">
+        <div>
+            <label for="name">姓名</label>
+            <input type="text" class="input-field" id="name" name="name">
+        </div>
+
+        <div>
+            <label for="gender">性別</label>
+            <input type="text" class="input-field" id="gender" name="gender">
+        </div>
+
+         <div>
+            <label for="tel">電話</label>
+            <input type="text" class="input-field" id="tel" name="tel">
+        </div>
+
+        <div>
+            <label for="nickname">暱稱</label>
+            <input type="text" class="input-field" id="nickname" name="nickname">
+        </div>
+
+        <div>
+            <label for="description">說明</label>
+            <textarea class="input-field" id="description" name="description"></textarea>
+        </div>
+
+        <input type="submit" value="新增">
     </form>
 {% endblock %}

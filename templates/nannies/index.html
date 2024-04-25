@@ -3,4 +3,10 @@
 {% block content %}
     <h1>保姆列表</h1>
     <a class="bg-green-300 px-2 py-1 rounded-full" href="{% url 'nannies:new' %}">新增</a>
+
+    {% for nanny in nannies %}
+      <div>
+          {{ nanny.name }}
+      </div>
+    {% endfor %}
 {% endblock %}
