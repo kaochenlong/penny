@@ -2,5 +2,9 @@
 
 {% block content %}
     <h1>新增保姆</h1>
-    表單!!
+    <form action="/nannies/add" method="post">
+        {% csrf_token %}
+
+        <input type="submit" value="login">
+    </form>
 {% endblock %}

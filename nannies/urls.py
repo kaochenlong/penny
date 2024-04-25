@@ -6,4 +6,5 @@ app_name = "nannies"
 urlpatterns = [
     path("", views.index, name="index"),
     path("new", views.new, name="new"),
+    path("add", views.create, name="add"),
 ]
