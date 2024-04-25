@@ -1,6 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
-from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.http import require_POST
 from .models import Nanny
 
@@ -46,4 +44,11 @@ def create(request):
     )
     nanny.save()
 
-    return redirect(reverse("root"))
+    return redirect("root")
+
+
+@require_POST
+def delete(request, id):
+    nanny = get_object_or_404(Nanny, pk=id)
+    nanny.delete()
+    return redirect("nannies:index")
