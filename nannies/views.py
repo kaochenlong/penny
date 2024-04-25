@@ -12,11 +12,27 @@ def index(request):
 
 def show(request, id):
     nanny = get_object_or_404(Nanny, pk=id)
-    return render(request, "nannies/show.html", {"nanny": nanny})
+
+    if request.method == "POST":
+        nanny.name = request.POST["name"]
+        nanny.gender = request.POST["gender"]
+        nanny.tel = request.POST["tel"]
+        nanny.nickname = request.POST["nickname"]
+        nanny.description = request.POST["description"]
+        nanny.save()
+
+        return redirect(f"/nannies/{nanny.id}")
+    else:
+        return render(request, "nannies/show.html", {"nanny": nanny})
 
 
 def new(request):
     return render(request, "nannies/new.html")
+
+
+def edit(request, id):
+    nanny = get_object_or_404(Nanny, pk=id)
+    return render(request, "nannies/edit.html", {"nanny": nanny})
 
 
 @require_POST
