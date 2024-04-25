@@ -6,7 +6,7 @@
 
     {% for nanny in nannies %}
       <div>
-          {{ nanny.name }}
+          <a href="{% url 'nannies:show' nanny.id %}">{{ nanny.name }}</a>
       </div>
     {% endfor %}
 {% endblock %}
