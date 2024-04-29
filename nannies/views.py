@@ -13,14 +13,12 @@ def show(request, id):
     nanny = get_object_or_404(Nanny, pk=id)
 
     if request.method == "POST":
-        nanny.name = request.POST["name"]
-        nanny.gender = request.POST["gender"]
-        nanny.tel = request.POST["tel"]
-        nanny.nickname = request.POST["nickname"]
-        nanny.description = request.POST["description"]
-        nanny.save()
+        form = NannyForm(request.POST, instance=nanny)
 
-        return redirect(f"/nannies/{nanny.id}")
+        if form.is_valid():
+            form.save()
+
+        return redirect("nannies:show", id=nanny.id)
     else:
         return render(request, "nannies/show.html", {"nanny": nanny})
 
@@ -32,7 +30,10 @@ def new(request):
 
 def edit(request, id):
     nanny = get_object_or_404(Nanny, pk=id)
-    return render(request, "nannies/edit.html", {"nanny": nanny})
+
+    form = NannyForm(instance=nanny)
+
+    return render(request, "nannies/edit.html", {"nanny": nanny, "form": form})
 
 
 @require_POST
@@ -40,7 +41,7 @@ def create(request):
     form = NannyForm(request.POST)
 
     if form.is_valid():
-        Nanny.objects.create(**form.cleaned_data)
+        form.save()
 
     return redirect("nannies:index")
 

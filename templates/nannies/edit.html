@@ -5,30 +5,7 @@
     <form action="{% url 'nannies:show' nanny.id %}" method="post">
         {% csrf_token %}
 
-        <div>
-            <label for="name">姓名</label>
-            <input type="text" class="input-field" id="name" name="name" value="{{ nanny.name }}">
-        </div>
-
-        <div>
-            <label for="gender">性別</label>
-            <input type="text" class="input-field" id="gender" name="gender" value="{{ nanny.gender }}">
-        </div>
-
-         <div>
-            <label for="tel">電話</label>
-            <input type="text" class="input-field" id="tel" name="tel" value="{{ nanny.tel }}">
-        </div>
-
-        <div>
-            <label for="nickname">暱稱</label>
-            <input type="text" class="input-field" id="nickname" name="nickname" value="{{ nanny.nickname }}">
-        </div>
-
-        <div>
-            <label for="description">說明</label>
-            <textarea class="input-field" id="description" name="description">{{ nanny.description }}</textarea>
-        </div>
+        {{ form }}
 
         <input type="submit" value="更新">
     </form>
