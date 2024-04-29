@@ -5,3 +5,13 @@
 .input-field {
     @apply border border-gray-500;
 }
+
+.flash {
+    & .success {
+        @apply bg-green-300;
+    }
+
+    & .error {
+        @apply bg-red-500 text-white;
+    }
+}
