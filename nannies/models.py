@@ -7,3 +7,5 @@ class Nanny(models.Model):
     tel = models.CharField(max_length=20)
     nickname = models.CharField(max_length=100)
     description = models.TextField(default="")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

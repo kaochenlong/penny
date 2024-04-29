@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from .models import Nanny
+from .forms import NannyForm
 
 
 def index(request):
@@ -25,7 +26,8 @@ def show(request, id):
 
 
 def new(request):
-    return render(request, "nannies/new.html")
+    form = NannyForm()
+    return render(request, "nannies/new.html", {"form": form})
 
 
 def edit(request, id):
@@ -35,16 +37,12 @@ def edit(request, id):
 
 @require_POST
 def create(request):
-    nanny = Nanny(
-        name=request.POST["name"],
-        gender=request.POST["gender"],
-        tel=request.POST["tel"],
-        nickname=request.POST["nickname"],
-        description=request.POST["description"],
-    )
-    nanny.save()
+    form = NannyForm(request.POST)
 
-    return redirect("root")
+    if form.is_valid():
+        Nanny.objects.create(**form.cleaned_data)
+
+    return redirect("nannies:index")
 
 
 @require_POST
