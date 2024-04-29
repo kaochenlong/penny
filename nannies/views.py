@@ -1,12 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from django.views.decorators.http import require_POST
 from .models import Nanny
 from .forms import NannyForm
-from django.contrib import messages
 
 
 def index(request):
     nannies = Nanny.objects.all()
+
+    keyword = request.GET.get("keyword")
+    if keyword:
+        # 搜尋
+        nannies = nannies.filter(name__icontains=keyword)
+
     return render(request, "nannies/index.html", {"nannies": nannies})
 
 
@@ -53,5 +59,6 @@ def create(request):
 def delete(request, id):
     nanny = get_object_or_404(Nanny, pk=id)
     nanny.delete()
+
     messages.error(request, "資料已刪除！")
     return redirect("nannies:index")

@@ -1,6 +1,11 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
+    <form>
+        搜尋 <input type="search" name="keyword" class="px-2 py-1 border-2 border-gray-500">
+        <button class="bg-gray-300 px-2 py-1">搜尋</button>
+    </form>
+
     <h1>保姆列表</h1>
     <a class="bg-green-300 px-2 py-1 rounded-full" href="{% url 'nannies:new' %}">新增</a>
 

@@ -5,7 +5,7 @@ from .models import Nanny
 class NannyForm(forms.ModelForm):
     class Meta:
         model = Nanny
-        exclude = ["created_at", "updated_at"]
+        fields = ["name", "gender", "tel", "nickname", "description"]
         labels = {
             "name": "姓名",
             "gender": "性別",
