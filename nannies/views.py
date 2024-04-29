@@ -6,6 +6,7 @@ from .forms import NannyForm
 
 
 def index(request):
+    messages.success(request, "hi")
     nannies = Nanny.objects.all()
 
     keyword = request.GET.get("keyword")
