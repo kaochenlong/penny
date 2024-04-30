@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.views.decorators.http import require_POST
 from .models import Nanny
 from .forms import NannyForm
+from django.views.generic import FormView
 
 
 def index(request):
@@ -31,9 +32,9 @@ def show(request, id):
         return render(request, "nannies/show.html", {"nanny": nanny})
 
 
-def new(request):
-    form = NannyForm()
-    return render(request, "nannies/new.html", {"form": form})
+class NewView(FormView):
+    form_class = NannyForm
+    template_name = "nannies/new.html"
 
 
 def edit(request, id):
