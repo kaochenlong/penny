@@ -8,28 +8,12 @@ from django.views.generic import FormView, ListView
 
 class IndexView(ListView):
     model = Nanny
-    template_name = "nannies/index.html"
-    context_object_name = "nannies"
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        keyword = self.request.GET.get("keyword", "").strip()
 
-        keyword = self.request.GET.get("keyword")
-        if keyword:
-            queryset = queryset.filter(name__icontains=keyword)
-
-        return queryset
-
-
-# def index(request):
-#     nannies = Nanny.objects.all()
-
-#     keyword = request.GET.get("keyword")
-#     if keyword:
-#         # 搜尋
-#         nannies = nannies.filter(name__icontains=keyword)
-
-#     return render(request, "nannies/index.html", {"nannies": nannies})
+        return queryset.filter(name__icontains=keyword)
 
 
 def show(request, id):

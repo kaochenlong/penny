@@ -6,10 +6,10 @@
         <button class="bg-gray-300 px-2 py-1">搜尋</button>
     </form>
 
-    <h1>保姆列表</h1>
+    <h1>保姆列表 ® &reg;</h1>
     <a class="bg-green-300 px-2 py-1 rounded-full" href="{% url 'nannies:new' %}">新增</a>
 
-    {% for nanny in nannies %}
+    {% for nanny in nanny_list %}
       <div>
           <a href="{% url 'nannies:show' nanny.id %}">{{ nanny.name }}</a>
       </div>
