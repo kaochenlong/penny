@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import HttpResponse, render, redirect, get_object_or_404
 from django.contrib import messages
+from django.urls import reverse_lazy, reverse
 from django.views.decorators.http import require_POST
 from .models import Nanny
 from .forms import NannyForm
-from django.views.generic import FormView, ListView
+from django.views.generic import FormView, ListView, DetailView, DeleteView
 
 
 class IndexView(ListView):
@@ -16,19 +17,18 @@ class IndexView(ListView):
         return queryset.filter(name__icontains=keyword)
 
 
-def show(request, id):
-    nanny = get_object_or_404(Nanny, pk=id)
+class ShowView(DetailView):
+    model = Nanny
 
-    if request.method == "POST":
+    def post(self, request, pk):
+        nanny = self.get_object()
         form = NannyForm(request.POST, instance=nanny)
 
         if form.is_valid():
             form.save()
             messages.success(request, "更新成功")
 
-        return redirect("nannies:show", id=nanny.id)
-    else:
-        return render(request, "nannies/show.html", {"nanny": nanny})
+        return redirect("nannies:show", pk=nanny.id)
 
 
 class NewView(FormView):
@@ -55,10 +55,9 @@ def create(request):
     return redirect("nannies:index")
 
 
-@require_POST
-def delete(request, id):
-    nanny = get_object_or_404(Nanny, pk=id)
-    nanny.delete()
+class NannyDeleteView(DeleteView):
+    model = Nanny
 
-    messages.error(request, "資料已刪除！")
-    return redirect("nannies:index")
+    def get_success_url(self):
+        messages.success(self.request, "已刪除")
+        return reverse("nannies:index")
