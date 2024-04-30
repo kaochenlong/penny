@@ -19,6 +19,10 @@ class Nanny(models.Model):
 
     objects = NannyManager()
 
+    def __str__(self):
+        gender_str = "Mr." if self.gender == "M" else "Mrs."
+        return f"{gender_str} {self.name}"
+
     def delete(self):
         self.deleted_at = timezone.now()
         self.save()
