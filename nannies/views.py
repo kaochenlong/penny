@@ -3,18 +3,33 @@ from django.contrib import messages
 from django.views.decorators.http import require_POST
 from .models import Nanny
 from .forms import NannyForm
-from django.views.generic import FormView
+from django.views.generic import FormView, ListView
 
 
-def index(request):
-    nannies = Nanny.objects.all()
+class IndexView(ListView):
+    model = Nanny
+    template_name = "nannies/index.html"
+    context_object_name = "nannies"
 
-    keyword = request.GET.get("keyword")
-    if keyword:
-        # 搜尋
-        nannies = nannies.filter(name__icontains=keyword)
+    def get_queryset(self):
+        queryset = super().get_queryset()
 
-    return render(request, "nannies/index.html", {"nannies": nannies})
+        keyword = self.request.GET.get("keyword")
+        if keyword:
+            queryset = queryset.filter(name__icontains=keyword)
+
+        return queryset
+
+
+# def index(request):
+#     nannies = Nanny.objects.all()
+
+#     keyword = request.GET.get("keyword")
+#     if keyword:
+#         # 搜尋
+#         nannies = nannies.filter(name__icontains=keyword)
+
+#     return render(request, "nannies/index.html", {"nannies": nannies})
 
 
 def show(request, id):
