@@ -2,4 +2,7 @@
 
 {% block content %}
     <h1 class="text-4xl">首頁</h1>
+    <button hx-get="/api/user_list" hx-target="#my_target" class="px-2 py-1 bg-pink-400">click</button>
+
+    <div id="my_target"></div>
 {% endblock %}

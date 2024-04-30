@@ -1,0 +1,8 @@
+<div x-data="{show: true}" x-show="show">
+    <button @click="show = false">close</button>
+    <ul>
+        {% for nanny in nannies %}
+            <li class="text-2xl">{{ nanny }}</li>
+        {% endfor %}
+    </ul>
+</div>
