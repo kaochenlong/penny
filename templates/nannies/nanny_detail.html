@@ -3,7 +3,7 @@
 {% block content %}
   <h2 class="text-2xl">{{ nanny.name }}</h2>
   <p>
-      {{ nanny.description }}
+      {{ nanny.description|linebreaks }}
   </p>
   <a href="{% url 'nannies:edit' nanny.id %}">編輯</a>
 
