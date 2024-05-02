@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import widgets
-from .models import Nanny, GENDER_OPTIONS
+from .models import Nanny
 
 
 class NannyForm(forms.ModelForm):
@@ -15,8 +15,19 @@ class NannyForm(forms.ModelForm):
             "description": "簡介",
         }
         widgets = {
+            "name": forms.TextInput(
+                attrs={"class": "input input-bordered"},
+            ),
+            "tel": forms.TextInput(
+                attrs={"class": "input input-bordered"},
+            ),
             "gender": forms.Select(
-                choices=GENDER_OPTIONS,
-                attrs={"class": "px-2 py-1 border border-gray-500"},
+                attrs={"class": "select select-bordered"},
+            ),
+            "nickname": forms.TextInput(
+                attrs={"class": "input input-bordered"},
+            ),
+            "description": forms.Textarea(
+                attrs={"class": "textarea textarea-bordered"},
             ),
         }

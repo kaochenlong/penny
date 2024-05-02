@@ -1,48 +1,53 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-  <h2 class="text-2xl">{{ nanny.name }}</h2>
-  <p>
-      {{ nanny.description|linebreaks }}
-  </p>
+  <section class="grid grid-cols-6">
+      <div class="col-span-4">
+          <h2 class="text-3xl">{{ nanny.name }}</h2>
+          <p>
+              {{ nanny.description|linebreaks }}
+          </p>
+          <section class="gap-2 my-2 flex">
+              <a class="btn btn-sm btn-neutral" href="{% url 'nannies:edit' nanny.id %}">編輯</a>
 
-  <section class="gap-2 my-2 flex">
-      <a class="btn btn-sm btn-neutral" href="{% url 'nannies:edit' nanny.id %}">編輯</a>
+              <form action="{% url 'nannies:delete' nanny.id %}"
+                    method="post">
+                  {% csrf_token %}
+                  <button class="btn btn-sm btn-neutral">刪除</button>
+              </form>
+          </section>
+      </div>
+      <aside class="col-span-2">
+          <section class="my-2">
+              <form
+                  x-data="{}"
+                  x-ref="comment_form"
+                  hx-swap="afterbegin"
+                  hx-target="#comments"
+                  hx-post="{% url 'nannies:comment' nanny.id %}"
+                  @htmx:after-swap.window="$refs.comment_form.reset()">
 
-      <form action="{% url 'nannies:delete' nanny.id %}"
-            method="post">
-          {% csrf_token %}
-          <button class="btn btn-sm btn-neutral">刪除</button>
-      </form>
+                  {% csrf_token %}
+
+                  <div class="flex flex-col">
+                  {% for f in comment_form %}
+                    <label class="text-lg">留言</label>
+                    <div>
+                        {{ f }}
+                    </div>
+                  {% endfor %}
+                  </div>
+
+                  <button class="btn btn-sm btn-neutral">留言</button>
+              </form>
+          </section>
+
+          <section id="comments" class="my-2">
+              {% for comment in comments %}
+                {% include "comments/comment.html" %}
+              {% endfor %}
+          </section>
+      </aside>
   </section>
 
-  <section class="my-2">
-      <form
-          x-data="{}"
-          x-ref="comment_form"
-          hx-swap="afterbegin"
-          hx-target="#comments"
-          hx-post="{% url 'nannies:comment' nanny.id %}"
-          @htmx:after-swap.window="$refs.comment_form.reset()">
-
-          {% csrf_token %}
-
-          <div class="flex flex-col">
-          {% for f in comment_form %}
-            <label>留言</label>
-            <div>
-                {{ f }}
-            </div>
-          {% endfor %}
-          </div>
-
-          <button class="btn btn-sm btn-neutral">留言</button>
-      </form>
-  </section>
-
-  <section id="comments">
-      {% for comment in comments %}
-        {% include "comments/comment.html" %}
-      {% endfor %}
-  </section>
 {% endblock %}

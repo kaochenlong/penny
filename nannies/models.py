@@ -2,11 +2,6 @@ from django.db import models
 from django.utils import timezone
 
 
-class NannyManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(deleted_at=None)
-
-
 GENDER_OPTIONS = [
     ("M", "男"),
     ("F", "女"),
@@ -14,9 +9,14 @@ GENDER_OPTIONS = [
 ]
 
 
+class NannyManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(deleted_at=None)
+
+
 class Nanny(models.Model):
     name = models.CharField(max_length=100)
-    gender = models.CharField(max_length=1)
+    gender = models.CharField(max_length=1, choices=GENDER_OPTIONS)
     tel = models.CharField(max_length=20)
     nickname = models.CharField(max_length=100)
     description = models.TextField(default="")

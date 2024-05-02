@@ -2,11 +2,13 @@
 
 {% block content %}
     <h1>新增保姆</h1>
-    <form action="{% url 'nannies:add' %}" method="post">
+    <form action="{% url 'nannies:add' %}" method="post" class="flex flex-col gap-2">
         {% csrf_token %}
 
-        {{ form }}
+        {{ form.as_div }}
 
-        <input type="submit" value="新增">
+        <div>
+            <input type="submit" value="新增" class="btn btn-neutral">
+        </div>
     </form>
 {% endblock %}
