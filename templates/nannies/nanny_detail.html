@@ -1,12 +1,12 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-  <section class="grid grid-cols-6">
-      <div class="col-span-4">
+  <section class="grid grid-cols-6 gap-2">
+      <div class="col-span-4 my-2 pr-2">
           <h2 class="text-3xl">{{ nanny.name }}</h2>
-          <p>
+          <article class="flex flex-col gap-4">
               {{ nanny.description|linebreaks }}
-          </p>
+          </article>
           <section class="gap-2 my-2 flex">
               <a class="btn btn-sm btn-neutral" href="{% url 'nannies:edit' nanny.id %}">編輯</a>
 
@@ -16,38 +16,44 @@
                   <button class="btn btn-sm btn-neutral">刪除</button>
               </form>
           </section>
-      </div>
-      <aside class="col-span-2">
-          <section class="my-2">
-              <form
-                  x-data="{}"
-                  x-ref="comment_form"
-                  hx-swap="afterbegin"
-                  hx-target="#comments"
-                  hx-post="{% url 'nannies:comment' nanny.id %}"
-                  @htmx:after-swap.window="$refs.comment_form.reset()">
 
-                  {% csrf_token %}
+          <aside class="col-span-2">
+              <section class="my-2">
+                  <form
+                      x-data="{content: ''}"
+                      x-ref="comment_form"
+                      hx-swap="afterbegin"
+                      hx-target="#comments"
+                      hx-confirm="確認留言？"
+                      hx-post="{% url 'nannies:comment' nanny.id %}"
+                      @htmx:after-swap.window="$refs.comment_form.reset()">
 
-                  <div class="flex flex-col">
-                  {% for f in comment_form %}
-                    <label class="text-lg">留言</label>
-                    <div>
-                        {{ f }}
-                    </div>
+                      {% csrf_token %}
+
+                      <div class="flex flex-col gap-2">
+                        {% for f in comment_form %}
+                            <label class="text-lg">留言</label>
+                            {{ f }}
+                        {% endfor %}
+                        <div>
+                            <button x-bind:disabled="content.trim().length == 0" class="btn btn-sm btn-neutral">留言</button>
+                        </div>
+                      </div>
+
+                  </form>
+              </section>
+
+              <section id="comments" class="my-2">
+                  {% for comment in comments %}
+                    {% include "comments/comment.html" %}
                   {% endfor %}
-                  </div>
+              </section>
+          </aside>
+      </div>
 
-                  <button class="btn btn-sm btn-neutral">留言</button>
-              </form>
-          </section>
-
-          <section id="comments" class="my-2">
-              {% for comment in comments %}
-                {% include "comments/comment.html" %}
-              {% endfor %}
-          </section>
-      </aside>
+      <div class="my-2">
+          <h2 class="text-3xl">推薦</h2>
+      </div>
   </section>
 
 {% endblock %}

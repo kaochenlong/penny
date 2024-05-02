@@ -1,7 +1,7 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-    <h1>新增保姆</h1>
+    <h1 class="text-3xl my-2">新增保姆</h1>
     <form action="{% url 'nannies:add' %}" method="post" class="flex flex-col gap-2">
         {% csrf_token %}
 

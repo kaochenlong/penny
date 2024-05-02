@@ -11,8 +11,9 @@ class CommentForm(ModelForm):
         widgets = {
             "content": forms.Textarea(
                 attrs={
-                    "rows": 4,
+                    "rows": 2,
                     "class": "textarea textarea-bordered",
+                    "x-model": "content",
                 }
             )
         }

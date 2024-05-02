@@ -15,3 +15,8 @@
         @apply bg-red-500 text-white;
     }
 }
+
+.htmx-swapping {
+    opacity: 0;
+    transition: opacity 1s ease-out;
+}
