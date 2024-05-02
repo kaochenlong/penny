@@ -1,4 +1,7 @@
-<p class="my-2">
-    {{ comment.content }}
-    <button class="btn btn-xs btn-neutral">刪除</button>
+<p class="my-2" x-data="{}">
+    <form hx-post="{% url 'comments:delete' comment.id %}">
+        {% csrf_token %}
+        {{ comment.content }}
+       <button class="btn btn-xs btn-neutral">刪除</button>
+    </form>
 </p>

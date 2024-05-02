@@ -17,12 +17,25 @@
   </section>
 
   <section class="my-2">
-      <form id="comment_form"
+      <form
+          x-data="{}"
+          x-ref="comment_form"
           hx-swap="afterbegin"
           hx-target="#comments"
-          hx-post="{% url 'nannies:comment' nanny.id %}">
+          hx-post="{% url 'nannies:comment' nanny.id %}"
+          @htmx:after-swap.window="$refs.comment_form.reset()">
+
           {% csrf_token %}
-          {{ comment_form }}
+
+          <div class="flex flex-col">
+          {% for f in comment_form %}
+            <label>留言</label>
+            <div>
+                {{ f }}
+            </div>
+          {% endfor %}
+          </div>
+
           <button class="btn btn-sm btn-neutral">留言</button>
       </form>
   </section>
