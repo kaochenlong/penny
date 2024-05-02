@@ -7,6 +7,13 @@ class NannyManager(models.Manager):
         return super().get_queryset().filter(deleted_at=None)
 
 
+GENDER_OPTIONS = [
+    ("M", "男"),
+    ("F", "女"),
+    ("O", "其它"),
+]
+
+
 class Nanny(models.Model):
     name = models.CharField(max_length=100)
     gender = models.CharField(max_length=1)
