@@ -17,15 +17,17 @@
   </section>
 
   <section class="my-2">
-      <form action="{% url 'nannies:comment' nanny.id %}" method="post">
-
+      <form id="comment_form"
+          hx-swap="afterbegin"
+          hx-target="#comments"
+          hx-post="{% url 'nannies:comment' nanny.id %}">
           {% csrf_token %}
           {{ comment_form }}
           <button class="btn btn-sm btn-neutral">留言</button>
       </form>
   </section>
 
-  <section>
+  <section id="comments">
       {% for comment in comments %}
         {% include "comments/comment.html" %}
       {% endfor %}

@@ -14,4 +14,5 @@ def create(req, pk):
         comment.nanny = nanny
         comment.save()
 
-    return redirect("nannies:show", pk=nanny.id)
+        # return redirect("nannies:show", pk=nanny.id)
+        return render(req, "comments/comment.html", {"comment": comment})
