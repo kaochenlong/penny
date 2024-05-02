@@ -5,12 +5,29 @@
   <p>
       {{ nanny.description|linebreaks }}
   </p>
-  <a href="{% url 'nannies:edit' nanny.id %}">編輯</a>
 
-  <form action="{% url 'nannies:delete' nanny.id %}"
-        method="post">
-      {% csrf_token %}
-      <button>刪除</button>
-  </form>
+  <section class="gap-2 my-2 flex">
+      <a class="btn btn-sm btn-neutral" href="{% url 'nannies:edit' nanny.id %}">編輯</a>
 
+      <form action="{% url 'nannies:delete' nanny.id %}"
+            method="post">
+          {% csrf_token %}
+          <button class="btn btn-sm btn-neutral">刪除</button>
+      </form>
+  </section>
+
+  <section class="my-2">
+      <form action="{% url 'nannies:comment' nanny.id %}" method="post">
+
+          {% csrf_token %}
+          {{ comment_form }}
+          <button class="btn btn-sm btn-neutral">留言</button>
+      </form>
+  </section>
+
+  <section>
+      {% for comment in comments %}
+        {% include "comments/comment.html" %}
+      {% endfor %}
+  </section>
 {% endblock %}

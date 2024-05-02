@@ -4,6 +4,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.decorators.http import require_POST
 from .models import Nanny
 from .forms import NannyForm
+from comments.forms import CommentForm
 from django.views.generic import FormView, ListView, DetailView, DeleteView
 
 
@@ -19,6 +20,12 @@ class IndexView(ListView):
 
 class ShowView(DetailView):
     model = Nanny
+    extra_context = {"comment_form": CommentForm()}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["comments"] = self.object.comment_set.all().order_by("-id")
+        return context
 
     def post(self, request, pk):
         nanny = self.get_object()
