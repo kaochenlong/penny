@@ -4,9 +4,9 @@
 
 ### Frontend
 
-- install `node` and `npm`
-- run `npm install` to install necessary packages.
-- run `npm run dev` to start the frontend server.
+- install `node` and `pnpm`
+- run `pnpm install` to install necessary packages.
+- run `pnpm run dev` to start the frontend server.
 
 ### Backend
 

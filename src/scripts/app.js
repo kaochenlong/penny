@@ -1,6 +1,4 @@
-import Alpine from "alpinejs";
-import HTMX from "htmx.org";
+import Alpine from "alpinejs"
+import "htmx.org"
 
-window.Alpine = Alpine;
-window.HTMX = HTMX;
-Alpine.start();
+Alpine.start()
