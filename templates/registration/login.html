@@ -1,0 +1,28 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <h1 class="text-3xl my-2">登入</h1>
+
+    {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+
+        <div class="mb-4">
+            <label for="email" class="label">帳號</label>
+            <input type="text" name="username" class="input input-bordered w-full">
+        </div>
+
+        <div class="mb-6">
+            <label for="password" class="label">密碼</label>
+            <input type="password" name="password" class="input input-bordered w-full">
+        </div>
+
+        <button class="btn btn-primary">
+            登入
+        </button>
+    </form>
+
+{% endblock %}

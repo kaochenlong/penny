@@ -1,7 +1,23 @@
-<nav class="py-4 border-b">
-    <ul class="flex gap-2">
-        <li><a class="underline text-lg font-semibold" href="{% url 'root' %}">首頁</a></li>
-        <li><a class="underline text-lg font-semibold" href="{% url 'nannies:index' %}">保姆列表</a></li>
-        <li><a class="underline text-lg font-semibold" href="{% url 'about' %}">關於我們</a></li>
+<nav class="py-4 border-b flex justify-between">
+    <ul class="flex gap-4">
+        <li><a class="nav-link" href="{% url 'root' %}">首頁</a></li>
+        <li><a class="nav-link" href="{% url 'nannies:index' %}">保姆列表</a></li>
+        <li><a class="nav-link" href="{% url 'about' %}">關於我們</a></li>
+    </ul>
+
+    <ul class="flex gap-4">
+        {% if user.is_authenticated %}
+            <li>
+                <form
+                    action="{% url 'logout' %}"
+                    method="post">
+                    {% csrf_token %}
+                    <button class="nav-link" href="#">登出</button>
+                </form>
+            </li>
+        {% else %}
+            <li><a class="nav-link" href="{% url 'login' %}">登入</a></li>
+            <li><a class="nav-link" href="#">註冊</a></li>
+        {% endif %}
     </ul>
 </nav>
