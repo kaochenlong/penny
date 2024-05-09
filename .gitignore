@@ -5,3 +5,4 @@ node_modules/
 .env
 static/scripts/app.js
 static/styles/style.css
+logs/*.log
