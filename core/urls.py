@@ -5,6 +5,7 @@ urlpatterns = [
     path("", include("pages.urls")),
     path("nannies/", include("nannies.urls")),
     path("comments/", include("comments.urls")),
+    path("api/v1/comments/", include("comments.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path("hello_kitty/", admin.site.urls),
 ]

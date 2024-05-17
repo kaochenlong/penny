@@ -1,13 +1,16 @@
 <div class="my-2 border-b py-2">
-    <form hx-confirm="確認刪除？"
-          hx-swap="outerHTML swap:1s"
-          hx-target="closest div"
-          hx-post="{% url 'comments:delete' comment.id %}">
-        {% csrf_token %}
-        <article>
-            {{ comment.content }}
-        </article>
-        <time class="text-slate-400 text-sm">{{ comment.created_at|date:'Y.m.d' }}</time>
-        <button class="btn btn-xs btn-primary">刪除</button>
-    </form>
+  <form
+    hx-confirm="確認刪除？"
+    hx-swap="outerHTML swap:1s"
+    hx-target="closest div"
+    hx-post="{% url 'comments:delete' comment.id %}"
+  >
+    {% csrf_token %}
+    <article>{{ comment.content }}</article>
+    <p class="font-bold text-red-500">{{comment.position}}</p>
+    <time class="text-slate-400 text-sm"
+      >{{ comment.created_at|date:'Y.m.d' }}</time
+    >
+    <button class="btn btn-xs btn-primary">刪除</button>
+  </form>
 </div>
