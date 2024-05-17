@@ -25,3 +25,10 @@ def create(req, pk):
 
         # return redirect("nannies:show", pk=nanny.id)
         return render(req, "comments/comment.html", {"comment": comment})
+    
+@require_POST
+def position(req, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    # comment.position = req.POST.get("position")
+    # comment.save()
+    # return HttpResponse("")
