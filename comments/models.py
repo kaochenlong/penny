@@ -1,6 +1,7 @@
 from django.db import models
 from nannies.models import Nanny
 from django.utils import timezone
+from positions.fields import PositionField
 
 
 class CommentManager(models.Manager):
@@ -16,6 +17,7 @@ class Comment(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     deleted_at = models.DateTimeField(null=True)
+    position = PositionField(collection='nanny')
 
     objects = CommentManager()
 
