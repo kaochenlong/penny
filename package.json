@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "alpinejs": "^3.13.10",
+    "draggable": "^4.2.0",
     "htmx.org": "^1.9.12"
   }
 }
