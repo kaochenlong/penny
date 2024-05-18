@@ -4,6 +4,7 @@ from nannies.models import Nanny
 from .forms import CommentForm
 from .models import Comment
 from django.http import HttpResponse
+import json
 
 
 @require_POST
@@ -29,6 +30,10 @@ def create(req, pk):
 @require_POST
 def position(req, pk):
     comment = get_object_or_404(Comment, pk=pk)
-    # comment.position = req.POST.get("position")
-    # comment.save()
-    # return HttpResponse("")
+    new_index = json.loads(req.body)["newIndex"]
+    # new_index = int(req.POST.get("newIndex"))  # HTMX POST data  
+    comment.position = new_index
+    comment.save()
+    return HttpResponse("Success")
+    # return redirect("nannies:show", pk=comment.nanny.id) # HTMX only can use redirect
+    
