@@ -43,7 +43,7 @@
                   </form>
               </section>
 
-              <section id="comments" class="my-2">
+              <section x-data="sortList" class="my-2">
                   {% for comment in comments %}
                     {% include "comments/comment.html" %}
                   {% endfor %}

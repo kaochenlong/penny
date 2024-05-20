@@ -3,8 +3,7 @@ from django.views.decorators.http import require_POST, require_http_methods
 from nannies.models import Nanny
 from .forms import CommentForm
 from .models import Comment
-from django.http import HttpResponse
-import json
+from django.http import HttpResponse, QueryDict, JsonResponse
 
 
 @require_POST
@@ -27,13 +26,11 @@ def create(req, pk):
         # return redirect("nannies:show", pk=nanny.id)
         return render(req, "comments/comment.html", {"comment": comment})
     
-@require_POST
+@require_http_methods(["PATCH"])
 def position(req, pk):
     comment = get_object_or_404(Comment, pk=pk)
-    new_index = json.loads(req.body)["newIndex"]
-    # new_index = int(req.POST.get("newIndex"))  # HTMX POST data  
+    new_index = int(QueryDict(req.body)["newIndex"])
     comment.position = new_index
     comment.save()
-    return HttpResponse("Success")
-    # return redirect("nannies:show", pk=comment.nanny.id) # HTMX only can use redirect
+    return JsonResponse({"status": "success", "newIndex": new_index})
     
