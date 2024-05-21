@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "alpinejs": "^3.13.10",
-    "axios": "^1.6.8",
     "htmx.org": "^1.9.12",
     "sortablejs": "^1.15.2"
   }
